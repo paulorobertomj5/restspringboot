@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -23,7 +24,7 @@ public class ClientController {
     private ClientService service;
 
     @ApiOperation(value = "findById")
-    @GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml"})
+    @GetMapping(value = "/{id}", produces = {"application/json", "application/x-yaml"})
     public ResponseEntity<Object> findById(@PathVariable("id") Long id) {
 
         ClientVO clientVO = service.findById(id);
@@ -37,7 +38,7 @@ public class ClientController {
     }
 
     @ApiOperation(value = "findByAll")
-    @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
+    @GetMapping(produces = {"application/json", "application/x-yaml"})
     public ResponseEntity<Object> findByAll() {
 
         List<ClientVO> clientVOs = service.findByAll();
@@ -51,8 +52,8 @@ public class ClientController {
     }
 
     @ApiOperation(value = "create")
-    @PostMapping(produces = {"application/json", "application/xml", "application/x-yaml"}, consumes = {"application/json", "application/xml", "application/x-yaml"})
-    public ResponseEntity<Object> create(@RequestBody ClientVO client) {
+    @PostMapping(produces = {"application/json", "application/x-yaml"}, consumes = {"application/json", "application/x-yaml"})
+    public ResponseEntity<Object> create(@Valid @RequestBody ClientVO client) {
 
         ClientVO clientVO = service.create(client);
 
@@ -65,8 +66,8 @@ public class ClientController {
     }
 
     @ApiOperation(value = "update")
-    @PutMapping(produces = {"application/json", "application/xml", "application/x-yaml"}, consumes = {"application/json", "application/xml", "application/x-yaml"})
-    public ResponseEntity<Object> update(@RequestBody ClientVO client) {
+    @PutMapping(produces = {"application/json", "application/x-yaml"}, consumes = {"application/json", "application/x-yaml"})
+    public ResponseEntity<Object> update(@Valid @RequestBody ClientVO client) {
         ClientVO clientVO = service.update(client);
         if (clientVO != null) {
             clientVO.add(linkTo(methodOn(ClientController.class).findById(clientVO.getKey())).withSelfRel());

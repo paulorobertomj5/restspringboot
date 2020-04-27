@@ -3,8 +3,12 @@ package com.springboot.restspringbootjpa.data.vo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.hateoas.ResourceSupport;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -15,9 +19,18 @@ public class ClientVO extends ResourceSupport implements Serializable {
 
     @JsonProperty("id")
     private Long key;
+    @NotNull
+    @NotBlank
     private String fistName;
+    @NotNull
+    @NotBlank
     private String lastName;
+    @NotNull
+    @NotBlank
     private String address;
+    @NotNull
+    @NotBlank
+    @Size(max = 6)
     private String gender;
 
     public ClientVO() {

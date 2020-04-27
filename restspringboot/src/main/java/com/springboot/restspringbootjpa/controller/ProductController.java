@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -23,7 +24,7 @@ public class ProductController {
     private ProductService service;
 
     @ApiOperation(value = "findById")
-    @GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml"})
+    @GetMapping(value = "/{id}", produces = {"application/json", "application/x-yaml"})
     public ResponseEntity<Object> findById(@PathVariable("id") Long id) {
 
         ProductVO productVO = service.findById(id);
@@ -37,7 +38,7 @@ public class ProductController {
     }
 
     @ApiOperation(value = "findByAll")
-    @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
+    @GetMapping(produces = {"application/json", "application/x-yaml"})
     public ResponseEntity<Object> findByAll() {
 
         List<ProductVO> productVOs = service.findByAll();
@@ -51,8 +52,8 @@ public class ProductController {
     }
 
     @ApiOperation(value = "create")
-    @PostMapping(produces = {"application/json", "application/xml", "application/x-yaml"}, consumes = {"application/json", "application/xml", "application/x-yaml"})
-    public ResponseEntity<Object> create(@RequestBody ProductVO product) {
+    @PostMapping(produces = {"application/json", "application/x-yaml"}, consumes = {"application/json", "application/x-yaml"})
+    public ResponseEntity<Object> create(@Valid @RequestBody ProductVO product) {
 
         ProductVO productVO = service.create(product);
 
@@ -65,8 +66,8 @@ public class ProductController {
     }
 
     @ApiOperation(value = "update")
-    @PutMapping(produces = {"application/json", "application/xml", "application/x-yaml"}, consumes = {"application/json", "application/xml", "application/x-yaml"})
-    public ResponseEntity<Object> update(@RequestBody ProductVO product) {
+    @PutMapping(produces = {"application/json", "application/x-yaml"}, consumes = {"application/json", "application/x-yaml"})
+    public ResponseEntity<Object> update(@Valid @RequestBody ProductVO product) {
         ProductVO productVO = service.update(product);
         if (productVO != null) {
             productVO.add(linkTo(methodOn(ProductController.class).findById(productVO.getKey())).withSelfRel());

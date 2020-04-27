@@ -3,8 +3,11 @@ package com.springboot.restspringbootjpa.data.vo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.ResourceSupport;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -15,9 +18,17 @@ public class OrderVO extends ResourceSupport implements Serializable {
 
     @JsonProperty("id")
     private Long key;
+    @NotNull
+    @NotBlank
     private Integer clientId;
+    @NotNull
+    @NotBlank
     private Integer productId;
+    @NotNull
+    @NotBlank
     private Integer qtd;
+    @NotNull
+    @NotBlank
     private Double price;
 
 

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.dozermapper.core.Mapping;
 import org.springframework.hateoas.ResourceSupport;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -15,8 +17,14 @@ public class ProductVO extends ResourceSupport implements Serializable {
 
     @JsonProperty("id")
     private Long key;
+    @NotNull
+    @NotBlank
     private String name;
+    @NotNull
+    @NotBlank
     private Integer qtd;
+    @NotNull
+    @NotBlank
     private Double price;
 
     public Long getKey() {
